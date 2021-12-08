@@ -14,7 +14,7 @@ class _MyAppState extends State<MyApp> {
   @override
   void initState() {
     super.initState();
-    XqZebra.listen((code) => setState(() => this._code = '$code'));
+    XqZebra().listen((code) => setState(() => this._code = '$code'));
   }
 
   @override
@@ -29,8 +29,8 @@ class _MyAppState extends State<MyApp> {
               child: Text('scan code: $_code\n'),
             ),
             GestureDetector(
-              onTapDown: (_) => XqZebra.startScan(),
-              onTapUp: (_) => XqZebra.stopScan(),
+              onTapDown: (_) => XqZebra().startScan(),
+              onTapUp: (_) => XqZebra().stopScan(),
               child: Container(
                 padding: EdgeInsets.all(20),
                 color: Colors.lightBlueAccent,

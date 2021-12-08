@@ -13,7 +13,7 @@ import 'package:zebra/zebra.dart';
 #### Add a listener in anywhere:
 
 ````dart
-XqZebra.listen((code){
+XqZebra().listen((code){
   // ...do something
 });
 ````
@@ -22,9 +22,9 @@ XqZebra.listen((code){
 
 ````dart
 // turn on the scanning device
-XqZebra.startScan();
+XqZebra().startScan();
 
 // turn off the scanning device
-XqZebra.stopScan();
+XqZebra().stopScan();
 ````
 

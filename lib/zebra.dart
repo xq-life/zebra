@@ -5,18 +5,29 @@ import 'dart:convert';
 
 /// Cbq Zebra Scan Plugin
 class XqZebra {
-  static const MethodChannel _mChannel = MethodChannel('com.cbq.zebra/command');
-  static const EventChannel _sChannel = EventChannel('com.cbq.zebra/scan');
+  static XqZebra _instance;
+
+  factory XqZebra() {
+    if (_instance == null) {
+      _instance = XqZebra._();
+    }
+    return _instance;
+  }
+
+  XqZebra._();
+
+  MethodChannel _mChannel = MethodChannel('com.cbq.zebra/command');
+  EventChannel _sChannel = EventChannel('com.cbq.zebra/scan');
 
   /// 监听扫描的数据
-  static listen(Function(dynamic) callback, {Function(Object) onError}) =>
+  listen(Function(dynamic) callback, {Function(Object) onError}) =>
       _sChannel.receiveBroadcastStream().listen(callback, onError: onError);
 
-  static startScan() => _sendDataWedgeCommand("START_SCANNING");
+  startScan() => _sendDataWedgeCommand("START_SCANNING");
 
-  static stopScan() => _sendDataWedgeCommand("STOP_SCANNING");
+  stopScan() => _sendDataWedgeCommand("STOP_SCANNING");
 
-  static Future<void> _sendDataWedgeCommand(String event) async =>
+  Future<void> _sendDataWedgeCommand(String event) async =>
       await _mChannel.invokeMethod(
           'sendDataWedgeCommandStringParameter',
           jsonEncode({
